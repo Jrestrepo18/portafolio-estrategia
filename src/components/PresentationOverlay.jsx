@@ -52,7 +52,7 @@ const PresentationOverlay = ({ currentSlide, nextSlide, prevSlide, onClose }) =>
              <div className="space-y-6">
                <h3 className="text-5xl font-black text-slate-900 tracking-tight">Historia y Origen.</h3>
                <div className="space-y-4 text-slate-600 leading-relaxed font-medium text-base md:text-lg">
-                 <p>**Fundada en 2023** en Medellín por 4 socios apasionados por la innovación.</p>
+                 <p><strong>Fundada en 2023</strong> en Medellín por 4 socios apasionados por la innovación.</p>
                  <p>Nace de la necesidad de plataformas digitales eficientes y modernas en el mercado colombiano.</p>
                  <p>Ha evolucionado de un emprendimiento móvil a una consultora de desarrollo Full-Stack confiable.</p>
                </div>

@@ -16,7 +16,7 @@ const History = () => {
 
           <div className="space-y-8 text-slate-600 leading-[1.8] text-lg lg:text-xl font-medium">
             <p>
-              **NEXUM** es una empresa colombiana fundada en el año **2023** en la ciudad de Medellín por los socios Isabel Rodríguez Restrepo, María Camila Moreno Cataño, Jerónimo Cardona Restrepo y Ángel David Mosquera Palacios, con el propósito de ofrecer soluciones tecnológicas innovadoras en el área de desarrollo web y aplicaciones digitales.
+              <strong>NEXUM</strong> es una empresa colombiana fundada en el año <strong>2023</strong> en la ciudad de Medellín por los socios Isabel Rodríguez Restrepo, María Camila Moreno Cataño, Jerónimo Cardona Restrepo y Ángel David Mosquera Palacios, con el propósito de ofrecer soluciones tecnológicas innovadoras en el área de desarrollo web y aplicaciones digitales.
             </p>
             <p>
               La idea de negocio surge a partir del interés común de sus fundadores por la tecnología, el desarrollo de software y el diseño digital, identificando la creciente necesidad de las empresas de contar con plataformas digitales eficientes, modernas y funcionales.
@@ -29,7 +29,7 @@ const History = () => {
               Con el paso del tiempo, la empresa ha consolidado su portafolio de servicios, ampliando sus capacidades en desarrollo Full Stack, diseño UI/UX y gestión de bases de datos, logrando posicionarse como una alternativa confiable para empresas que buscan transformación digital efectiva.
             </p>
             <p>
-              Actualmente, **NEXUM** se proyecta como una empresa en crecimiento exponencial, con visión de expansión a mercados nacionales e internacionales, apoyándose en la innovación constante y el aprendizaje continuo.
+              Actualmente, <strong>NEXUM</strong> se proyecta como una empresa en crecimiento exponencial, con visión de expansión a mercados nacionales e internacionales, apoyándose en la innovación constante y el aprendizaje continuo.
             </p>
           </div>
         </div>

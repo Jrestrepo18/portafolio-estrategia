@@ -10,6 +10,8 @@ import Portfolio from './pages/Portfolio';
 import Team from './pages/Team';
 import Legal from './pages/Legal';
 import PresentationOverlay from './components/PresentationOverlay';
+import DossierTemplate from './components/DossierTemplate';
+import { generateDossier } from './utils/generateDossier';
 import { team } from './data/companyData';
 
 // Scroll to top on route change

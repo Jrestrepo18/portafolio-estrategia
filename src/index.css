@@ -1,3 +1,36 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  @keyframes float-slow { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+  @keyframes mesh-pulse { 0%, 100% { transform: scale(1); opacity: 0.3; } 50% { transform: scale(1.2); opacity: 0.5; } }
+  @keyframes reveal-in { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+  .animate-float { 
+    animation: float-slow 6s ease-in-out infinite; 
+  }
+  .animate-reveal { 
+    animation: reveal-in 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; 
+    opacity: 0;
+  }
+  .stagger-1 { animation-delay: 0.1s; }
+  .stagger-2 { animation-delay: 0.2s; }
+  .stagger-3 { animation-delay: 0.3s; }
+
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-[#f8fafc] text-slate-900 font-sans;
+}
+
+::selection {
+  @apply bg-emerald-500 text-white;
+}

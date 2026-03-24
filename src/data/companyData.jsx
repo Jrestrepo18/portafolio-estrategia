@@ -104,10 +104,50 @@ export const services = [
 ];
 
 export const team = [
-  { name: "Jerónimo Cardona Restrepo", role: "Gerente General", icon: <Users className="w-5 h-5" /> },
-  { name: "María Camila Moreno Cataño", role: "Directora Comercial", icon: <Briefcase className="w-5 h-5" /> },
-  { name: "Isabel Rodríguez Restrepo", role: "Director Tecnológico (CTO)", icon: <Cpu className="w-5 h-5" /> },
-  { name: "Ángel David Mosquera Palacios", role: "Director Operativo", icon: <Workflow className="w-5 h-5" /> }
+  { 
+    name: "Jerónimo Cardona Restrepo", 
+    role: "Gerente General", 
+    icon: <Users className="w-5 h-5" />,
+    functions: [
+      "Representación legal y direccional de la empresa.",
+      "Toma de decisiones estratégicas de alto nivel.",
+      "Gestión de relaciones con stakeholders clave.",
+      "Aprobación de la visión y planificación corporativa 2030."
+    ]
+  },
+  { 
+    name: "María Camila Moreno Cataño", 
+    role: "Directora Comercial", 
+    icon: <Briefcase className="w-5 h-5" />,
+    functions: [
+      "Diseño de estrategias de adquisición y retención de clientes.",
+      "Liderazgo en negociaciones de alto valor y alianzas estratégicas.",
+      "Estructuración de metas de ventas y proyecciones de ingresos.",
+      "Análisis de expansión de mercado nacional e internacional."
+    ]
+  },
+  { 
+    name: "Isabel Rodríguez Restrepo", 
+    role: "Director Tecnológico (CTO)", 
+    icon: <Cpu className="w-5 h-5" />,
+    functions: [
+      "Definición y adopción de la arquitectura de software (Tech Stack).",
+      "Liderazgo del equipo de desarrollo e ingeniería técnica.",
+      "Implementación de metodologías ágiles en el ciclo de vida del software.",
+      "Aseguramiento de ciberseguridad y escalabilidad de las soluciones."
+    ]
+  },
+  { 
+    name: "Ángel David Mosquera Palacios", 
+    role: "Director Operativo", 
+    icon: <Workflow className="w-5 h-5" />,
+    functions: [
+      "Supervisión y optimización de los procesos internos de producción.",
+      "Control de calidad y cumplimiento en la entrega de proyectos.",
+      "Gestión de recursos y eficiencia en el flujo de trabajo.",
+      "Resolución operativa de cuellos de botella en tiempo real."
+    ]
+  }
 ];
 
 export const valuesVerbatim = [

@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import History from './pages/History';
+import LoadingScreen from './components/LoadingScreen';
 import Strategy from './pages/Strategy';
 import Portfolio from './pages/Portfolio';
 import Team from './pages/Team';
@@ -21,11 +22,39 @@ const ScrollToTop = () => {
 };
 
 const App = () => {
+  const [loading, setLoading] = useState(true);
   const [scrolled, setScrolled] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [presentationMode, setPresentationMode] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const heroRef = useRef(null);
+
+  const handleStartPresentation = React.useCallback(() => {
+    const elem = document.documentElement;
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) {
+      elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) {
+      elem.msRequestFullscreen();
+    }
+    setPresentationMode(true);
+    setCurrentSlide(0);
+  }, []);
+
+  const handleClosePresentation = React.useCallback(() => {
+    if (document.fullscreenElement) {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+    }
+    setPresentationMode(false);
+  }, []);
+
+  const nextSlide = () => setCurrentSlide(prev => Math.min(prev + 1, 5));
+  const prevSlide = () => setCurrentSlide(prev => Math.max(prev - 1, 0));
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -42,32 +71,53 @@ const App = () => {
       if (presentationMode) {
         if (e.key === 'ArrowRight') nextSlide();
         if (e.key === 'ArrowLeft') prevSlide();
-        if (e.key === 'Escape') setPresentationMode(false);
+        if (e.key === 'Escape') handleClosePresentation();
+      } else {
+        // Trigger presentation with 'f' or 'F'
+        if (e.key.toLowerCase() === 'f' && !loading) {
+          handleStartPresentation();
+        }
+      }
+    };
+
+    const handleFullscreenChange = () => {
+      if (!document.fullscreenElement) {
+        setPresentationMode(false);
       }
     };
 
     window.addEventListener('scroll', handleScroll);
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    if (presentationMode) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      document.body.style.overflow = 'unset';
     };
-  }, [presentationMode, currentSlide]);
-
-  const nextSlide = () => setCurrentSlide(prev => Math.min(prev + 1, 6));
-  const prevSlide = () => setCurrentSlide(prev => Math.max(prev - 1, 0));
+  }, [presentationMode, currentSlide, loading, handleStartPresentation, handleClosePresentation]);
 
   return (
     <Router>
       <ScrollToTop />
-      <div className="min-h-screen bg-[#f8fafc] text-slate-900 font-sans selection:bg-emerald-500 selection:text-white pb-20 overflow-x-hidden">
+      {loading && <LoadingScreen onComplete={() => setLoading(false)} />}
+      
+      <div className={`min-h-screen bg-[#f8fafc] text-slate-900 font-sans selection:bg-[#c5a67c] selection:text-white pb-20 overflow-x-hidden transition-opacity duration-1000 ${loading ? 'opacity-0 h-screen overflow-hidden' : 'opacity-100'}`}>
         
-        <Header 
-          scrolled={scrolled} 
-          onStartPresentation={() => { setPresentationMode(true); setCurrentSlide(0); }} 
-        />
+        {!presentationMode && (
+          <Header 
+            scrolled={scrolled} 
+            onStartPresentation={handleStartPresentation} 
+          />
+        )}
 
         <Routes>
           <Route path="/" element={<Home mousePos={mousePos} heroRef={heroRef} />} />
@@ -78,7 +128,7 @@ const App = () => {
           <Route path="/legal" element={<Legal />} />
         </Routes>
 
-        <Footer team={team} />
+        {!presentationMode && <Footer team={team} />}
 
         {/* Presentation Overlay */}
         {presentationMode && (
@@ -86,7 +136,9 @@ const App = () => {
             currentSlide={currentSlide}
             nextSlide={nextSlide}
             prevSlide={prevSlide}
-            onClose={() => setPresentationMode(false)}
+            onClose={handleClosePresentation}
+            mousePos={mousePos}
+            heroRef={heroRef}
           />
         )}
       </div>

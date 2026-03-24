@@ -1,130 +1,191 @@
-import React from 'react';
-import { ArrowRight, Globe, Cpu, BarChart3, Building2, Target, Users } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ArrowRight, ShieldCheck, Target, Users2, Shield, Scale, Users, Building2, TrendingUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import CorporateWavesCanvas from '../components/CorporateWavesCanvas';
+
+const heroSlides = [
+  {
+    title: "Protegemos lo que",
+    highlight: "tanto le costó construir.",
+    subtitle: "Consultoría de alto impacto en gestión de riesgos, reingeniería de procesos e inteligencia tecnológica para blindar y escalar su empresa.",
+    icon: <ShieldCheck />,
+    status: "Blindaje Activo"
+  },
+  {
+    title: "Diseñamos estrategias",
+    highlight: "que generan valor real.",
+    subtitle: "Transformamos su visión corporativa en resultados medibles, con diagnósticos integrales y planes de acción ejecutables desde el primer día.",
+    icon: <Target />,
+    status: "Análisis de Valor"
+  },
+  {
+    title: "Construimos equipos",
+    highlight: "de alto rendimiento.",
+    subtitle: "Potenciamos el capital humano de su organización con programas de liderazgo, coaching ejecutivo y diseño de cultura organizacional.",
+    icon: <Users2 />,
+    status: "Capital Humano"
+  }
+];
 
 const Home = ({ mousePos, heroRef }) => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsAnimating(true);
+      setTimeout(() => {
+        setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+        setIsAnimating(false);
+      }, 600);
+    }, 7000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const currentText = heroSlides[currentSlide];
+
   return (
     <>
-      {/* PREMIUM HERO SECTION */}
-      <header ref={heroRef} className="relative min-h-[90vh] flex items-center pt-24 pb-20 px-6 md:px-12 overflow-hidden bg-white">
+      {/* DARK PREMIUM HERO */}
+      <section ref={heroRef} className="relative min-h-[100dvh] flex items-center justify-center pt-32 pb-20 px-6 md:px-12 overflow-hidden bg-[#020617]">
         
-        {/* Animated Gradient Mesh (Subtle) */}
-        <div className="absolute inset-0 z-0 opacity-30">
-          <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-emerald-100 rounded-full blur-[100px] animate-[mesh-pulse_8s_infinite] decoration-clone" />
-          <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-slate-100 rounded-full blur-[120px] animate-[mesh-pulse_12s_infinite_reverse]" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40%] h-[40%] bg-indigo-50 rounded-full blur-[80px] animate-[mesh-pulse_10s_infinite]" />
-        </div>
+        <CorporateWavesCanvas />
 
-        {/* Floating Decorative Elements */}
-        <div className="absolute inset-0 z-1 pointer-events-none opacity-15">
-          <div className="absolute top-1/4 left-10 animate-float stagger-1"><Cpu className="w-10 h-10 text-emerald-400 rotate-12" /></div>
-          <div className="absolute bottom-1/4 left-1/3 animate-float stagger-2"><BarChart3 className="w-14 h-14 text-slate-300 -rotate-12" /></div>
-          <div className="absolute top-1/3 right-1/4 animate-float stagger-3"><Building2 className="w-10 h-10 text-emerald-300 rotate-45" /></div>
-        </div>
+        <div className="max-w-7xl mx-auto relative z-20 w-full">
+          <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-16 items-center">
 
-        <div className="max-w-7xl mx-auto relative z-10 grid lg:grid-cols-[1.1fr_0.9fr] gap-12 items-center">
-          <div className="space-y-10 opacity-0 animate-reveal">
-            <div className="inline-flex items-center space-x-3 bg-slate-50 text-slate-600 px-5 py-2.5 rounded-full border border-slate-200 shadow-sm animate-reveal stagger-1">
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
-              </span>
-              <span className="text-[11px] font-black uppercase tracking-[0.2em]">Planeación Estratégica 2023-2030</span>
-            </div>
-            
-            <h1 className="text-6xl md:text-8xl font-black text-slate-900 leading-[0.95] tracking-tight opacity-0 animate-reveal stagger-2">
-              Arquitectos de <br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-emerald-500 to-indigo-500">Valor Digital.</span>
-            </h1>
-            
-            <p className="text-lg md:text-xl text-slate-500 max-w-xl leading-relaxed opacity-0 animate-reveal stagger-3 font-medium">
-              NEXUM trasciende el desarrollo tradicional para integrar visión estratégica, diseño estructurado y tecnología de alto impacto a medida para tu empresa.
-            </p>
-            
-            <div className="flex flex-wrap gap-5 pt-4 opacity-0 animate-reveal stagger-3">
-              <Link to="/portafolio" className="bg-slate-900 text-white px-10 py-4 rounded-xl font-black uppercase tracking-widest text-xs hover:bg-emerald-600 transition-all flex items-center group shadow-xl hover:shadow-emerald-500/30 transform hover:-translate-y-1">
-                Ver Portafolio <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-1.5 transition-transform" />
-              </Link>
-              <div className="flex items-center space-x-5 px-8 py-4 rounded-xl border border-slate-200 bg-white shadow-md group hover:border-emerald-200 transition-colors">
-                <Globe className="text-emerald-500 w-6 h-6 group-hover:rotate-[20deg] transition-transform" />
-                <div>
-                  <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest">Sede Corporativa</p>
-                  <p className="text-sm font-black text-slate-800">Medellín, Colombia</p>
-                </div>
+            {/* Left Text Block */}
+            <div className="text-left space-y-10">
+              
+              <div className="inline-flex items-center gap-4 px-5 py-2 border border-white/10 rounded-full bg-white/5 backdrop-blur-md shadow-2xl animate-reveal">
+                <span className="flex gap-2">
+                  <ShieldCheck size={16} className="text-[#c5a67c]" />
+                  <Target size={16} className="text-[#c5a67c]" />
+                  <Users2 size={16} className="text-[#c5a67c]" />
+                </span>
+                <div className="w-[1px] h-4 bg-white/20" />
+                <span className="text-[10px] md:text-[11px] font-bold uppercase tracking-[0.4em] text-[#c5a67c]">
+                  Estrategia · Valor · Seguridad
+                </span>
+              </div>
+
+              <div className="relative">
+                <h1
+                  className={`text-2xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-[1.15] transition-all duration-700 ease-out ${isAnimating ? 'opacity-0 translate-y-6 blur-sm' : 'opacity-100 translate-y-0 blur-0'}`}
+                >
+                  <span className="block text-slate-500 font-light text-sm md:text-lg uppercase tracking-[0.3em] mb-4">
+                    Consultores Estratégicos
+                  </span>
+                  {currentText.title} <br />
+                  <span className="relative inline-block text-[#c5a67c] mt-1 font-extrabold">
+                    {currentText.highlight}
+                    <div className={`absolute -bottom-2 left-0 h-1 bg-[#c5a67c] rounded-full transition-all duration-1000 ${isAnimating ? 'w-0' : 'w-32'}`} />
+                  </span>
+                </h1>
+
+                <p
+                  className={`mt-10 text-sm md:text-base lg:text-lg text-slate-400/90 leading-relaxed font-light max-w-xl transition-all duration-700 delay-150 ${isAnimating ? 'opacity-0 translate-y-3' : 'opacity-100 translate-y-0'}`}
+                >
+                  {currentText.subtitle}
+                </p>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-6 pt-6 animate-reveal stagger-2">
+                <Link
+                  to="/portafolio"
+                  className="px-12 py-5 bg-[#c5a67c] text-[#0f2a4a] font-bold text-xs uppercase tracking-[0.25em] rounded-sm flex items-center justify-center gap-3 hover:bg-[#b89765] transition-all shadow-xl hover:shadow-[#c5a67c]/30 active:scale-95"
+                >
+                  Nuestros Servicios
+                  <ArrowRight size={18} />
+                </Link>
+                <Link
+                  to="/estrategia"
+                  className="px-12 py-5 bg-transparent border border-white/20 text-white font-bold text-xs uppercase tracking-[0.25em] rounded-sm flex items-center justify-center hover:border-[#c5a67c]/50 hover:bg-white/5 transition-all"
+                >
+                  Solicitar Consultoría
+                </Link>
               </div>
             </div>
-          </div>
 
-          {/* Interactive Parallax Card */}
-          <div 
-            className="relative perspective-1000 hidden lg:block opacity-0 animate-reveal stagger-3"
-            style={{ 
-              transform: `rotateY(${mousePos.x * 5 - 2.5}deg) rotateX(${-(mousePos.y * 5 - 2.5)}deg)`,
-              transition: 'transform 0.1s ease-out'
-            }}
-          >
-            <div className="bg-white p-3 rounded-[2.5rem] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] border border-slate-100 relative z-10 transition-transform duration-500">
-              <div className="bg-slate-50 rounded-[2rem] p-10 overflow-hidden relative">
-                <div className="absolute top-0 right-0 p-4 opacity-[0.03] scale-150 rotate-12"><Building2 className="w-48 h-48" /></div>
+            {/* Right: Dynamic Shield Visual */}
+            <div className="hidden lg:flex justify-end pr-4 lg:pr-12">
+              <div className="relative flex items-center justify-center w-[450px] h-[450px]">
                 
-                <div className="flex items-center justify-between mb-10 relative z-10">
-                  <div className="bg-slate-900 text-white p-4 rounded-xl shadow-lg">
-                    <Target className="w-6 h-6" />
-                  </div>
-                  <div className="text-right">
-                    <span className="text-[10px] text-slate-400 font-black uppercase tracking-[0.2em]">NIT PROVISIONAL</span>
-                    <p className="text-xs font-black text-slate-900">LTDA-2023-COL</p>
-                  </div>
+                {/* Outer ring */}
+                <div className={`absolute inset-0 border border-[#c5a67c]/10 rounded-full transition-all duration-1000 ${isAnimating ? 'scale-90 opacity-40' : 'scale-100 opacity-100'}`} />
+                
+                {/* Spinning ring with dot */}
+                <div className="absolute inset-16 border border-[#c5a67c]/5 rounded-full animate-orbit">
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#c5a67c] rounded-full shadow-[0_0_15px_#c5a67c]" />
                 </div>
 
-                <div className="space-y-8 relative z-10">
-                  <div className="space-y-2">
-                    <h4 className="text-[10px] font-black text-emerald-600 uppercase tracking-widest">Modelo de Negocio</h4>
-                    <p className="text-2xl font-black text-slate-900 leading-tight">Sociedad de <br/>Responsabilidad Limitada</p>
-                  </div>
+                {/* Central icon container */}
+                <div className={`relative w-56 h-56 bg-[#0f2a4a]/40 backdrop-blur-2xl rounded-full border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex items-center justify-center transition-all duration-500 ${isAnimating ? 'scale-75 opacity-0 blur-md' : 'scale-100 opacity-100 blur-0'}`}>
+                  {React.cloneElement(currentText.icon, { size: 84, strokeWidth: 1.1, className: 'text-[#c5a67c]' })}
+                  <div className="absolute inset-0 rounded-full border border-[#c5a67c]/20 animate-pulse" />
+                </div>
 
-                  <div className="grid grid-cols-1 gap-4">
-                    <Link to="/legal" className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between group hover:border-emerald-500 transition-colors">
-                      <div className="flex items-center gap-4">
-                        <span className="text-sm font-bold text-slate-600">Ver Detalles Legales</span>
-                      </div>
-                      <ArrowRight className="w-5 h-5 text-emerald-500 group-hover:translate-x-1.5 transition-transform" />
-                    </Link>
-                  </div>
-
-                  <div className="pt-6 border-t border-slate-200">
-                    <div className="flex -space-x-3 mb-4">
-                      {[1, 2, 3, 4].map(i => (
-                        <div key={i} className={`w-10 h-10 rounded-full border-2 border-white flex items-center justify-center text-[10px] font-bold shadow-md ${i % 2 === 0 ? 'bg-emerald-500 text-white' : 'bg-slate-900 text-white'}`}>
-                          S{i}
-                        </div>
-                      ))}
-                    </div>
-                    <p className="text-xs text-slate-500 font-medium leading-relaxed">
-                       Gobernanza distribuida equitativamente entre los 4 socios fundadores.
-                    </p>
+                {/* Status Panel */}
+                <div className={`absolute -right-16 top-1/2 -translate-y-1/2 bg-white/5 backdrop-blur-lg border border-white/10 p-5 rounded-sm shadow-xl min-w-[140px] transition-all duration-500 ${isAnimating ? 'opacity-0 translate-x-10' : 'opacity-100 translate-x-0'}`}>
+                  <div className="text-[10px] font-bold text-[#c5a67c] uppercase tracking-[0.25em] mb-2">Estatus</div>
+                  <div className="text-white text-[12px] font-medium tracking-wide">{currentText.status}</div>
+                  <div className="flex gap-1.5 pt-3">
+                    {heroSlides.map((_, i) => (
+                      <div 
+                        key={i} 
+                        className={`w-1.5 h-1.5 rounded-full transition-all duration-500 ${currentSlide === i ? 'bg-[#c5a67c] animate-pulse shadow-[0_0_8px_#c5a67c]' : 'bg-[#c5a67c]/20'}`} 
+                      />
+                    ))}
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </header>
+
+        {/* Bottom Navigation */}
+        <div className="absolute bottom-12 left-6 md:left-12 flex items-center gap-10">
+          <div className="flex gap-3">
+            {heroSlides.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => { setIsAnimating(true); setTimeout(() => { setCurrentSlide(index); setIsAnimating(false); }, 600); }}
+                className={`h-1 transition-all duration-500 rounded-full ${currentSlide === index ? 'w-16 bg-[#c5a67c]' : 'w-6 bg-white/20'}`}
+              />
+            ))}
+          </div>
+          <div className="flex items-center gap-4">
+            <span className="text-[11px] text-white/60 font-medium tracking-[0.3em]">
+              0{currentSlide + 1}
+            </span>
+            <div className="w-8 h-px bg-white/20" />
+            <span className="text-[11px] text-white/20 font-medium tracking-[0.3em]">
+              0{heroSlides.length}
+            </span>
+          </div>
+        </div>
+
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-12 right-12 hidden md:flex items-center gap-6 rotate-90 origin-right translate-y-[-50%]">
+          <span className="text-[10px] uppercase tracking-[0.6em] text-white/30 font-light">Scroll Down</span>
+          <div className="w-20 h-px bg-gradient-to-r from-white/30 to-transparent" />
+        </div>
+      </section>
 
       {/* Brief Summary Section */}
       <section className="max-w-7xl mx-auto px-6 md:px-12 py-24 grid md:grid-cols-3 gap-10">
         {[
-          { icon: <Target className="text-emerald-500 w-8 h-8" />, title: "Misión", link: "/estrategia", text: "Optimizar procesos a través de tecnología de vanguardia." },
-          { icon: <Building2 className="text-emerald-500 w-8 h-8" />, title: "Historia", link: "/historia", text: "Fundada en 2023 con raíces sólidas en Medellín." },
-          { icon: <Users className="text-emerald-500 w-8 h-8" />, title: "Equipo", link: "/equipo", text: "Liderado por expertos en gestión y tecnología." }
+          { icon: <Target className="text-[#c5a67c] w-8 h-8" />, title: "Misión", link: "/estrategia", text: "Optimizar procesos a través de tecnología de vanguardia y blindaje operativo." },
+          { icon: <Building2 className="text-[#c5a67c] w-8 h-8" />, title: "Historia", link: "/historia", text: "Fundada en 2023 con raíces sólidas y una trayectoria intachable en Medellín." },
+          { icon: <Users className="text-[#c5a67c] w-8 h-8" />, title: "Equipo", link: "/equipo", text: "Liderado por especialistas en alta gerencia, cumplimiento legal y tecnología." }
         ].map((item, idx) => (
-          <Link key={idx} to={item.link} className="bg-white p-10 rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-xl hover:border-emerald-200 transition-all group">
-            <div className="bg-emerald-50 w-16 h-16 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+          <Link key={idx} to={item.link} className="bg-white p-10 rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-xl hover:border-[#c5a67c]/30 transition-all group">
+            <div className="bg-[#c5a67c]/10 w-16 h-16 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
               {item.icon}
             </div>
             <h3 className="text-2xl font-black text-slate-900 mb-4">{item.title}</h3>
             <p className="text-base text-slate-500 font-medium leading-relaxed">{item.text}</p>
-            <div className="mt-8 flex items-center text-xs font-black text-emerald-600 uppercase tracking-widest group-hover:text-emerald-700">
+            <div className="mt-8 flex items-center text-xs font-black text-[#c5a67c] uppercase tracking-widest group-hover:text-[#b89765]">
               Explorar <ArrowRight className="w-5 h-5 ml-3 group-hover:translate-x-1.5 transition-transform" />
             </div>
           </Link>

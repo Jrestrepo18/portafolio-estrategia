@@ -1,5 +1,5 @@
 import React from 'react';
-import { Target, Home, ArrowRight } from 'lucide-react';
+import { Target, Home, ArrowRight, History, Briefcase, Users } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 
 const Header = ({ scrolled, onStartPresentation }) => {
@@ -17,10 +17,18 @@ const Header = ({ scrolled, onStartPresentation }) => {
           <NavLink to="/" className={({isActive}) => `flex items-center gap-1.5 transition-all group ${isActive ? 'text-emerald-600' : 'hover:text-emerald-600'}`}>
             <Home className="w-4 h-4 group-hover:-translate-y-0.5 transition-transform" /> Inicio
           </NavLink>
-          <NavLink to="/historia" className={({isActive}) => `transition-colors ${isActive ? 'text-emerald-600' : 'hover:text-emerald-600'}`}>Historia</NavLink>
-          <NavLink to="/estrategia" className={({isActive}) => `transition-colors ${isActive ? 'text-emerald-600' : 'hover:text-emerald-600'}`}>Estrategia</NavLink>
-          <NavLink to="/portafolio" className={({isActive}) => `transition-colors ${isActive ? 'text-emerald-600' : 'hover:text-emerald-600'}`}>Portafolio</NavLink>
-          <NavLink to="/equipo" className={({isActive}) => `transition-colors ${isActive ? 'text-emerald-600' : 'hover:text-emerald-600'}`}>Equipo</NavLink>
+          <NavLink to="/historia" className={({isActive}) => `flex items-center gap-1.5 transition-all group ${isActive ? 'text-emerald-600' : 'hover:text-emerald-600'}`}>
+            <History className="w-4 h-4 group-hover:-translate-y-0.5 transition-transform" /> Historia
+          </NavLink>
+          <NavLink to="/estrategia" className={({isActive}) => `flex items-center gap-1.5 transition-all group ${isActive ? 'text-emerald-600' : 'hover:text-emerald-600'}`}>
+            <Target className="w-4 h-4 group-hover:-translate-y-0.5 transition-transform" /> Estrategia
+          </NavLink>
+          <NavLink to="/portafolio" className={({isActive}) => `flex items-center gap-1.5 transition-all group ${isActive ? 'text-emerald-600' : 'hover:text-emerald-600'}`}>
+            <Briefcase className="w-4 h-4 group-hover:-translate-y-0.5 transition-transform" /> Portafolio
+          </NavLink>
+          <NavLink to="/equipo" className={({isActive}) => `flex items-center gap-1.5 transition-all group ${isActive ? 'text-emerald-600' : 'hover:text-emerald-600'}`}>
+            <Users className="w-4 h-4 group-hover:-translate-y-0.5 transition-transform" /> Equipo
+          </NavLink>
         </div>
         
         <button 
